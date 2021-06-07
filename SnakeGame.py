@@ -4,7 +4,7 @@ import random
 WIDTH , HEIGHT = 900,500
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("snake game")
-FPS = 60
+FPS = 30
 
 
 #size of the objects
