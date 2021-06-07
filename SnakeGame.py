@@ -24,15 +24,6 @@ BLACK = (0,0,0)
 RED = (255,0,0)
 
 
- 
-#drawings of the game
-def draw_window():
-    draw_snake()
-    draw_apple()
-    
-    
-    pygame.display.update()
-
 #draws the snake 
 def draw_snake():
    
@@ -68,7 +59,10 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-        draw_window()
+        win.fill((BLACK)) #refreshes screen to delete old moves
+        draw_snake()
+        draw_apple()
+        read_move()
         
     pygame.quit()
 
