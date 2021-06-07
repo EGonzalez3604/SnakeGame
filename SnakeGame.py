@@ -48,7 +48,17 @@ def draw_apple():
 def apple_eaten(apple_pos):
     if apple_pos[0] == SNAKE_BODY[0][0] and apple_pos[1] ==SNAKE_BODY[0][1]: #comparest apple position to the head of the snake by x and y
         draw_apple()
- 
+#testing moves the body to the head and tail to the body 
+#change x +10 so snake is moving to the right
+def read_move():
+
+    # read user input
+    
+    SNAKE_BODY.insert(0,list(SNAKE_HEAD))
+    SNAKE_BODY.pop()
+    SNAKE_HEAD[0] = SNAKE_HEAD[0] + 10
+    print(SNAKE_HEAD)
+    print(SNAKE_BODY)
 def main():
    
     run = True
