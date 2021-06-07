@@ -35,8 +35,8 @@ def draw_window():
 #draws the snake 
 def draw_snake():
    
-    for x in SNAKE_BODY:
-        snake_draw = pygame.draw.rect(win,GREEN,pygame.Rect(x[0],x[1],SNAKE_BODY_WIDTH,SNAKE_BODY_HEIGHT ))
+    for Position in SNAKE_BODY:
+        snake_draw = pygame.draw.rect(win,GREEN,pygame.Rect(Position[0],Position[1],SNAKE_BODY_WIDTH,SNAKE_BODY_HEIGHT ))
 #draws the apple
 def draw_apple():
     
