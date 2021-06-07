@@ -30,6 +30,7 @@ def draw_snake():
     for Position in SNAKE_BODY:
         snake_draw = pygame.draw.rect(win,GREEN,pygame.Rect(Position[0],Position[1],SNAKE_BODY_WIDTH,SNAKE_BODY_HEIGHT ))
 #draws the apple
+#currently drawing infinte apples
 def draw_apple():
     
     apple_pos=[random.randint(0,WIDTH),random.randint(0,HEIGHT)]
