@@ -14,8 +14,9 @@ APPLE_HEIGHT =10
 APPLE_WIDTH =10
 
 #starting size and position of snake
+#snake head is the next move
+SNAKE_HEAD= [20,50]
 SNAKE_BODY = [[10,50],[10,60],[10,70]]
-
 
 #colors of the game
 GREEN = (0,255,0)
