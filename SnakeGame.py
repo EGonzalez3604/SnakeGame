@@ -63,6 +63,7 @@ def main():
         draw_snake()
         draw_apple()
         read_move()
+        pygame.display.update()
         
     pygame.quit()
 
