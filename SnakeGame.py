@@ -44,7 +44,7 @@ def apple_eaten(apple_pos):
 #change x +10 so snake is moving to the right
 def read_move():
 
-     keys_pressed = pygame.key.get_pressed()
+    keys_pressed = pygame.key.get_pressed()
      
        
     if keys_pressed[pygame.K_LEFT]:
