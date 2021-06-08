@@ -44,13 +44,22 @@ def apple_eaten(apple_pos):
 #change x +10 so snake is moving to the right
 def read_move():
 
-    # read user input
-    
+     keys_pressed = pygame.key.get_pressed()
+     
+       
+    if keys_pressed[pygame.K_LEFT]:
+        SNAKE_HEAD[0] = SNAKE_HEAD[0] - 10
+    if keys_pressed[pygame.K_RIGHT]:
+        SNAKE_HEAD[0] = SNAKE_HEAD[0] + 10
+    if keys_pressed[pygame.K_UP]:    
+        SNAKE_HEAD[1] = SNAKE_HEAD[1] - 10
+    if keys_pressed[pygame.K_DOWN]:
+        SNAKE_HEAD[1] = SNAKE_HEAD[1] + 10
     SNAKE_BODY.insert(0,list(SNAKE_HEAD))
+        
+    #if snake eats apple do not pop
     SNAKE_BODY.pop()
-    SNAKE_HEAD[0] = SNAKE_HEAD[0] + 10
-    print(SNAKE_HEAD)
-    print(SNAKE_BODY)
+
 def main():
    
     run = True
