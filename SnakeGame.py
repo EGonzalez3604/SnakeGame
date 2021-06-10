@@ -15,7 +15,8 @@ APPLE_WIDTH =10
 
 #starting size and position of snake
 #snake head is the next move
-SNAKE_HEAD= [20,50]
+NEXT_MOVE= "RIGHT"
+SNAKE_HEAD= [10,50]
 SNAKE_BODY = [[10,50],[10,60],[10,70]]
 
 #colors of the game
@@ -42,42 +43,45 @@ def apple_eaten(apple_pos):
         draw_apple()
 #testing moves the body to the head and tail to the body 
 #change x +10 so snake is moving to the right
-def read_move():
+def read_move(NEXT_MOVE):
 
-    keys_pressed = pygame.key.get_pressed()
+   keys_pressed = pygame.key.get_pressed()
      
-       
-    if keys_pressed[pygame.K_LEFT]:
+   if keys_pressed[pygame.K_LEFT]:
+        NEXT_MOVE= "LEFT"
+   if keys_pressed[pygame.K_RIGHT]:
+        NEXT_MOVE= "RIGHT"      
+   if keys_pressed[pygame.K_UP]:    
+        NEXT_MOVE= "UP"      
+   if keys_pressed[pygame.K_DOWN]:
+        NEXT_MOVE= "DOWN"
+ 
+   if NEXT_MOVE == "LEFT":
         SNAKE_HEAD[0] = SNAKE_HEAD[0] - 10
-    if keys_pressed[pygame.K_RIGHT]:
+   if NEXT_MOVE == "RIGHT":
         SNAKE_HEAD[0] = SNAKE_HEAD[0] + 10
-    if keys_pressed[pygame.K_UP]:    
+   if NEXT_MOVE == "UP":
         SNAKE_HEAD[1] = SNAKE_HEAD[1] - 10
-    if keys_pressed[pygame.K_DOWN]:
+   if NEXT_MOVE == "DOWN":
         SNAKE_HEAD[1] = SNAKE_HEAD[1] + 10
-    SNAKE_BODY.insert(0,list(SNAKE_HEAD))
-        
-    #if snake eats apple do not pop
-    SNAKE_BODY.pop()
+   SNAKE_BODY.insert(0,list(SNAKE_HEAD))
+   SNAKE_BODY.pop()
+   return NEXT_MOVE
 
-def main():
    
-    run = True
-    clock = pygame.time.Clock()
-    while run: 
-        clock.tick(FPS)
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-        win.fill((BLACK)) #refreshes screen to delete old moves
-        draw_snake()
-        draw_apple()
-        read_move()
-        pygame.display.update()
+run = True
+clock = pygame.time.Clock()
+while run: 
+   clock.tick(FPS)
+   for event in pygame.event.get():
+      if event.type == pygame.QUIT:
+         run = False
+   win.fill((BLACK)) #refreshes screen to delete old moves
+   draw_snake()
+   draw_apple()
+   NEXT_MOVE = read_move(NEXT_MOVE)
+   pygame.display.update()
         
-    pygame.quit()
+pygame.quit()
 
 
-
-if __name__ == "__main__":
-    main()
