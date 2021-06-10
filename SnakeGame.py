@@ -46,7 +46,8 @@ def apple_eaten(apple_pos):
 def read_move(NEXT_MOVE):
 
    keys_pressed = pygame.key.get_pressed()
-     
+   PREVIOUS_MOVE = NEXT_MOVE
+ #reads user movement   
    if keys_pressed[pygame.K_LEFT]:
         NEXT_MOVE= "LEFT"
    if keys_pressed[pygame.K_RIGHT]:
@@ -55,7 +56,16 @@ def read_move(NEXT_MOVE):
         NEXT_MOVE= "UP"      
    if keys_pressed[pygame.K_DOWN]:
         NEXT_MOVE= "DOWN"
- 
+ #checks if the snake is going backwards
+   if NEXT_MOVE == "LEFT" and PREVIOUS_MOVE == "RIGHT":
+        NEXT_MOVE = PREVIOUS_MOVE
+   if NEXT_MOVE == "RIGHT" and PREVIOUS_MOVE =="LEFT":
+        NEXT_MOVE = PREVIOUS_MOVE
+   if NEXT_MOVE == "UP" and PREVIOUS_MOVE =="DOWN":
+        NEXT_MOVE = PREVIOUS_MOVE
+   if NEXT_MOVE == "DOWN" and PREVIOUS_MOVE =="UP":
+        NEXT_MOVE = PREVIOUS_MOVE
+#this if statements do the movement of the snake
    if NEXT_MOVE == "LEFT":
         SNAKE_HEAD[0] = SNAKE_HEAD[0] - 10
    if NEXT_MOVE == "RIGHT":
@@ -64,11 +74,12 @@ def read_move(NEXT_MOVE):
         SNAKE_HEAD[1] = SNAKE_HEAD[1] - 10
    if NEXT_MOVE == "DOWN":
         SNAKE_HEAD[1] = SNAKE_HEAD[1] + 10
+  #makes the adds the new head to the snake and pops the old tail
    SNAKE_BODY.insert(0,list(SNAKE_HEAD))
    SNAKE_BODY.pop()
    return NEXT_MOVE
 
-   
+#main   
 run = True
 clock = pygame.time.Clock()
 while run: 
@@ -79,7 +90,7 @@ while run:
    win.fill((BLACK)) #refreshes screen to delete old moves
    draw_snake()
    draw_apple()
-   NEXT_MOVE = read_move(NEXT_MOVE)
+   NEXT_MOVE = read_move(NEXT_MOVE) #updates the current movemnt of the snake
    pygame.display.update()
         
 pygame.quit()
