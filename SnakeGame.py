@@ -4,7 +4,7 @@ import random
 WIDTH , HEIGHT = 900,500
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("snake game")
-FPS = 30
+FPS = 30 #low fps slower the game
 SCORE =0 
 #both methods return random x and y values
 def randomx():
@@ -15,14 +15,12 @@ def randomy():
     return rannum
 
 #size of the objects example apple and snake
-OBJECT_HEIGTH =20 
-OBJECT_WIDTH =20
-
+OBJECT_SIZE =20 
 #starting size and position of snake
 #snake head is the next move
 NEXT_MOVE= "RIGHT"
 SNAKE_HEAD= [randomx(),randomy()]
-SNAKE_BODY = [list(SNAKE_HEAD),[SNAKE_HEAD[0],SNAKE_HEAD[1]-OBJECT_HEIGTH],[SNAKE_HEAD[0],SNAKE_HEAD[1]-OBJECT_HEIGTH]]
+SNAKE_BODY = [list(SNAKE_HEAD),[SNAKE_HEAD[0],SNAKE_HEAD[1]-OBJECT_SIZE],[SNAKE_HEAD[0],SNAKE_HEAD[1]-OBJECT_SIZE]]
 APPLE_SPAWNED = True
 apple_pos=[randomx(), randomy()] 
 
@@ -36,12 +34,12 @@ RED = (255,0,0)
 def draw_snake():
    
     for Position in SNAKE_BODY:
-        snake_draw = pygame.draw.rect(win,GREEN,pygame.Rect(Position[0],Position[1],OBJECT_WIDTH ,OBJECT_HEIGTH ))
+        snake_draw = pygame.draw.rect(win,GREEN,pygame.Rect(Position[0],Position[1],OBJECT_SIZE ,OBJECT_SIZE ))
 #check if the apple was eaten by the snake  
 def apple_eaten(APPLE_SPAWNED):
 
-    if apple_pos[0] == SNAKE_BODY[0][0] and apple_pos[1] ==SNAKE_BODY[0][1]: #comparest apple position to the head of the snake by x and y
-        APPLE_SPAWNED =False
+    if apple_pos[0] == SNAKE_BODY[0][0] and apple_pos[1] ==SNAKE_BODY[0][1]: #comparest apple position to the head of the snake by x and y if botht he same dont pop the sanek and 
+        APPLE_SPAWNED =False                                                   #keep extra tail 
      
     else:
         SNAKE_BODY.pop() 
@@ -72,15 +70,19 @@ def read_move(NEXT_MOVE):
         NEXT_MOVE = PREVIOUS_MOVE
 #this if statements do the movement of the snake
    if NEXT_MOVE == "LEFT":
-        SNAKE_HEAD[0] = SNAKE_HEAD[0] - OBJECT_WIDTH
+        SNAKE_HEAD[0] = SNAKE_HEAD[0] - OBJECT_SIZE
    if NEXT_MOVE == "RIGHT":
-        SNAKE_HEAD[0] = SNAKE_HEAD[0] + OBJECT_WIDTH
+        SNAKE_HEAD[0] = SNAKE_HEAD[0] + OBJECT_SIZE
    if NEXT_MOVE == "UP":
-        SNAKE_HEAD[1] = SNAKE_HEAD[1] - OBJECT_HEIGTH
+        SNAKE_HEAD[1] = SNAKE_HEAD[1] - OBJECT_SIZE
    if NEXT_MOVE == "DOWN":
-        SNAKE_HEAD[1] = SNAKE_HEAD[1] + OBJECT_HEIGTH
+        SNAKE_HEAD[1] = SNAKE_HEAD[1] + OBJECT_SIZE
+   if SNAKE_HEAD[0] > WIDTH or SNAKE_HEAD[1] > HEIGHT or SNAKE_HEAD[0] < -0 or SNAKE_HEAD[1] < 0:
+        pygame.quit() #kills the game if snake head is out of range 
   #makes the adds the new head to the snake and pops the old tail
    SNAKE_BODY.insert(0,list(SNAKE_HEAD))
+   draw_snake()
+   pygame.display.update()  
    return NEXT_MOVE
 
 def kill_snake(run):#kills the snake of the edge is out of the screen
@@ -104,17 +106,17 @@ while run:
    #draws apple if not spawned
    if APPLE_SPAWNED == False:
         apple_pos=[randomx(),randomy()]
-        apple_draw= pygame.draw.rect(win,RED,pygame.Rect(apple_pos[0],apple_pos[1],OBJECT_WIDTH ,OBJECT_HEIGTH ))
+        apple_draw= pygame.draw.rect(win,RED,pygame.Rect(apple_pos[0],apple_pos[1],OBJECT_SIZE ,OBJECT_SIZE ))#check if the appple spwan possition is one of the body if true then spawn again
         APPLE_SPAWNED= True
    else:
-        apple_draw= pygame.draw.rect(win,RED,pygame.Rect(apple_pos[0],apple_pos[1],OBJECT_WIDTH ,OBJECT_HEIGTH ))
+        apple_draw= pygame.draw.rect(win,RED,pygame.Rect(apple_pos[0],apple_pos[1],OBJECT_SIZE ,OBJECT_SIZE ))
     
    #reads the user move ands updates NEXT_MOVE
    NEXT_MOVE = read_move(NEXT_MOVE) 
    #if apple is eaten update apple spawn to false
    APPLE_SPAWNED= apple_eaten(APPLE_SPAWNED)
-   #if snake passes edge kill the game
-   run = kill_snake(run)
+ 
+ 
 
    pygame.display.update()
         
