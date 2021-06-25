@@ -80,6 +80,9 @@ def read_move(NEXT_MOVE):
    if SNAKE_HEAD[0] > WIDTH or SNAKE_HEAD[1] > HEIGHT or SNAKE_HEAD[0] < -0 or SNAKE_HEAD[1] < 0:
         pygame.quit() #kills the game if snake head is out of range 
   #makes the adds the new head to the snake and pops the old tail
+   for Position in SNAKE_BODY:  
+        if Position[0] == SNAKE_HEAD[0] and Position[1] == SNAKE_HEAD[1]:
+            pygame.quit()      
    SNAKE_BODY.insert(0,list(SNAKE_HEAD))
    draw_snake()
    pygame.display.update()  
