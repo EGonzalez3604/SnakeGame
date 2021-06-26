@@ -109,6 +109,9 @@ while run:
    #draws apple if not spawned
    if APPLE_SPAWNED == False:
         apple_pos=[randomx(),randomy()]
+        for Position in SNAKE_BODY:  
+            if apple_pos[0] == Position[0] and apple_pos[1] == Position[1]: #check to see if the apple does not spawn in the snakes body
+                apple_pos=[randomx(),randomy()]
         apple_draw= pygame.draw.rect(win,RED,pygame.Rect(apple_pos[0],apple_pos[1],OBJECT_SIZE ,OBJECT_SIZE ))#check if the appple spwan possition is one of the body if true then spawn again
         APPLE_SPAWNED= True
    else:
