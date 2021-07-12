@@ -11,6 +11,11 @@ FPS = 15 #speed of the game
 #size of the objects example apple and snake 
 OBJECT_SIZE =20 #can be changed to any number
 
+#colors of the game
+GREEN = (0,255,0)
+BLACK = (0,0,0)
+RED = (255,0,0)
+
 #both of these methods get random x and y value
 def randomx():
     rannum =OBJECT_SIZE*random.randint(0, math.floor((WIDTH-OBJECT_SIZE) /OBJECT_SIZE ))
@@ -27,10 +32,6 @@ SNAKE_BODY = [list(SNAKE_HEAD),[SNAKE_HEAD[0],SNAKE_HEAD[1]-OBJECT_SIZE],[SNAKE_
 APPLE_SPAWNED = True
 apple_pos=[randomx(), randomy()] 
 
-#colors of the game
-GREEN = (0,255,0)
-BLACK = (0,0,0)
-RED = (255,0,0)
 
 #draws the snake 
 def draw_snake():
