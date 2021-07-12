@@ -6,8 +6,7 @@ import math
 WIDTH , HEIGHT = 900,500
 win = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("snake game")
-FPS = 15
-SCORE=0
+FPS = 15 #speed of the game
 
 #size of the objects example apple and snake 
 OBJECT_SIZE =20 #can be changed to any number
@@ -93,6 +92,20 @@ def read_move(NEXT_MOVE):
     pygame.display.update()    
     return NEXT_MOVE
 
+def check_apple(APPLE_SPAWNED,apple_pos): 
+      #spawns in the apple if apple is not spawned
+    if APPLE_SPAWNED == False:
+       
+        apple_pos=[randomx(),randomy()]
+        for Position in SNAKE_BODY:  
+            if apple_pos[0] == Position[0] and apple_pos[1] == Position[1]: #check to see if the apple does not spawn in the snakes body
+                apple_pos=[randomx(),randomy()]
+        apple_draw= pygame.draw.rect(win,RED,pygame.Rect(apple_pos[0],apple_pos[1],OBJECT_SIZE ,OBJECT_SIZE )) #check if the appple spwan possition is one of the body if true then spawn again
+        APPLE_SPAWNED= True
+    else:
+        apple_draw= pygame.draw.rect(win,RED,pygame.Rect(apple_pos[0],apple_pos[1],OBJECT_SIZE ,OBJECT_SIZE ))
+    return APPLE_SPAWNED, apple_pos
+
 #main
 run = True
 clock = pygame.time.Clock()
@@ -107,17 +120,8 @@ while run:
     #draws the snake of the window
     draw_snake()
     
-    #spawns in the apple if apple is not spawned
-    if APPLE_SPAWNED == False:
-       
-        apple_pos=[randomx(),randomy()]
-        for Position in SNAKE_BODY:  
-            if apple_pos[0] == Position[0] and apple_pos[1] == Position[1]: #check to see if the apple does not spawn in the snakes body
-                apple_pos=[randomx(),randomy()]
-        apple_draw= pygame.draw.rect(win,RED,pygame.Rect(apple_pos[0],apple_pos[1],OBJECT_SIZE ,OBJECT_SIZE )) #check if the appple spwan possition is one of the body if true then spawn again
-        APPLE_SPAWNED= True
-    else:
-        apple_draw= pygame.draw.rect(win,RED,pygame.Rect(apple_pos[0],apple_pos[1],OBJECT_SIZE ,OBJECT_SIZE ))
+    #checks if apple is spawned if apple exist then redraw if not spawn new apple
+    APPLE_SPAWNED, apple_pos = check_apple(APPLE_SPAWNED,apple_pos)
 
     #reads the user move ands updates NEXT_MOVE
     NEXT_MOVE = read_move(NEXT_MOVE) 
